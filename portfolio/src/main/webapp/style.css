@@ -26,28 +26,30 @@
   font-family: var(--main-font);
   font-weight: normal;
 }
-body, html{
+body,html{
   background: darkgrey;
-  margin:0 ;
-  padding: 0;
+  margin:0px ;
+  padding: 0px;
   width:100%;
-  min-height:100%;
+  min-height:100vh;
   overflow-x: hidden;
+  margin-bottom: -20px;
+
 }
 /* Footer */
 .footer {
-    height: auto;
-    font-family: var(--main-font);
-    font-weight: var(--bold-text);
-    background: var(--dark-colour);
-    padding-top: 20px;
-    text-align: center;
-
+  width:100%;
+  height: auto;
+  font-family: var(--main-font);
+  font-weight: var(--bold-text);
+  background: var(--dark-colour);
+  padding-top: 20px;
+  text-align: center;
 }
 .footer-icons{
-    list-style: none;
-    display: flex;
-    justify-content: center;
+  list-style: none;
+  display: flex;
+  justify-content: center;
 }
 .footer-img{
   max-width: 50px;

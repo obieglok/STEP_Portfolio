@@ -16,13 +16,20 @@
  * Allows user to guess my next trip destination.
  */
 function guessMyTrip() {
-  const places = ["thailand", "singapore", "tokyo", "australia","peru", "hawaii", "vietnam"];
+  const places = 
+    ["thailand", "singapore", "tokyo", "australia","peru", "hawaii", "vietnam"];
+
   var input = document.getElementById("user_input").value;
   console.log(input);
   if (places.includes(input.toLowerCase())) {
-      document.getElementById('display').innerHTML = "Well done you guessed it correctly! " + input +" is one of the places I will be travelling to on my Round the World Trip in 2022!";
+      document.getElementById('display').innerHTML = 
+        "Well done you guessed it correctly! " 
+        + input 
+        + " is one of the places I will be travelling" 
+        + " to on my Round the World Trip in 2022!";
   }
   else {
-    document.getElementById('display').innerHTML = "Unfortunately you guessed it wrong!, Try Again!";
+    document.getElementById('display').innerHTML = 
+        "Unfortunately you guessed it wrong!, Try Again!";
   }
 }

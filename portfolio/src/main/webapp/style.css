@@ -6,7 +6,7 @@
 :root {
   --white-colour: white;
   --dark-colour: #525252;
-  --light-grey: lightgrey;
+  --light-colour: lightgrey;
   --main-font: 'Raleway', sans-serif;
   --normal-text: 300 ;
   --bold-text: 800;
@@ -93,7 +93,7 @@ body,html{
   text-decoration: underline;
 }
 .nav a.current{
-  background-color:var(--light-grey);
+  background-color:var(--light-colour);
 }
 .nav h1{
   color: var(--white-colour);
@@ -118,9 +118,10 @@ body,html{
   width:250px;
   height:300px;
   margin-right:15px;
+  padding-bottom:15px;
 }
 .welcome-section {
-  background: var(--light-grey);
+  background: var(--light-colour);
 }
 /* Travel Gallery */
 .gallery {
@@ -140,9 +141,6 @@ body,html{
 }
 .gallery__photo{
   position:relative;
-}
-.gallery__item--1 .hidden-text{
-  text-align:center;
 }
 .gallery__img:hover{
   transform:scale(1.05);
@@ -234,5 +232,12 @@ body,html{
   transform: translateY(-50%);
   text-align: center;
   padding:15px;
-  color:var(--light-grey);
+  color:var(--light-colour);
+}
+.trip-button{
+  background: var(--light-colour);
+  cursor:pointer;
+  font-family: var(--main-font);
+  font-weight:var(--bold-text);
+  padding: 10px 10px;
 }

@@ -15,14 +15,16 @@
 /**
  * Adds a random greeting to the page.
  */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+function guessMyTrip()
+{
+  const places=["thailand", "singapore", "tokyo", "australia","peru", "hawaii", "vietnam"];
+  var input =document.getElementById("user_input").value;
+  console.log(input);
+  if(places.includes(input.toLowerCase())){
+      document.getElementById('display').innerHTML = "Well done you guessed it correctly! " + input +" is one of the places I will be travelling to on my Round the World Trip in 2022!";
+  }
+  else{
+    document.getElementById('display').innerHTML = "Unfortunately you guessed it wrong!, Try Again!";
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
-
-  // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+  }
 }

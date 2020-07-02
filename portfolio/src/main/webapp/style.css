@@ -240,10 +240,14 @@ body,html{
   padding:15px;
   color:var(--light-colour);
 }
-.trip-button{
+.button{
   background: var(--light-colour);
   cursor:pointer;
   font-family: var(--main-font);
   font-weight:var(--bold-text);
   padding: 10px 10px;
+}
+#displayFact{
+  border-style: none;
+  background: var(--light-colour);
 }

@@ -33,3 +33,16 @@ function guessMyTrip() {
         "Unfortunately you guessed it wrong!, Try Again!";
   }
 }
+function moreFacts(){
+  const facts = ["I have hosted Jeff Weiner in Trinity College",
+    "I took part in my first ever hackathon with JP Morgan in 2019.",
+    "Once JP Morgan flew me business class to London! (amazing experience)",
+    "I spend a lot of time volunteering in college.",
+    "I would love to have a job which allows me to travel.",
+    "I am preparing for a 5 month backpacking trip !"];
+
+  let rand = Math.floor(Math.random() * facts.length);
+  document.getElementById("displayFact").innerHTML= facts[rand];
+  document.getElementById("displayFact").style.border="double";
+
+}

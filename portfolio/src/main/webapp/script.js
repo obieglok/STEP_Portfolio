@@ -17,7 +17,8 @@
  */
 function guessMyTrip() {
   const places = 
-    ["thailand", "singapore", "tokyo", "australia","peru", "hawaii", "vietnam"];
+    ["thailand", "singapore", "tokyo", "australia", "peru",
+         "hawaii", "vietnam"];
 
   let input = document.getElementById("user_input").value;
   if (places.includes(input.toLowerCase())) {

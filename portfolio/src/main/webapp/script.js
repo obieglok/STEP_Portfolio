@@ -15,16 +15,14 @@
 /**
  * Adds a random greeting to the page.
  */
-function guessMyTrip()
-{
-  const places=["thailand", "singapore", "tokyo", "australia","peru", "hawaii", "vietnam"];
-  var input =document.getElementById("user_input").value;
+function guessMyTrip() {
+  const places = ["thailand", "singapore", "tokyo", "australia","peru", "hawaii", "vietnam"];
+  var input = document.getElementById("user_input").value;
   console.log(input);
-  if(places.includes(input.toLowerCase())){
+  if (places.includes(input.toLowerCase())) {
       document.getElementById('display').innerHTML = "Well done you guessed it correctly! " + input +" is one of the places I will be travelling to on my Round the World Trip in 2022!";
   }
-  else{
+  else {
     document.getElementById('display').innerHTML = "Unfortunately you guessed it wrong!, Try Again!";
-
   }
 }

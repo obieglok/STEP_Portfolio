@@ -13,7 +13,7 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Allows user to guess my next trip destination.
  */
 function guessMyTrip() {
   const places = ["thailand", "singapore", "tokyo", "australia","peru", "hawaii", "vietnam"];

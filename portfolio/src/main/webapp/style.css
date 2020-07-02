@@ -105,15 +105,21 @@ body,html{
 /* Sections */
 .section {
   padding-top: 30px;
-  padding-left: 5px;
+  padding-left: 10px;
   padding-right: 5px;
   display:inline-block;
   width:100%;
   height:auto;
-  border-style: inset;
+  border: 2px solid ;
+  border-radius: 25px;
   box-shadow: 5px 5px var(--dark-colour);
 }
+.section + .section {
+  margin-top:10px;
+  margin-bottom: 10px;
+}
 .intro-image {
+  padding-left: 15px;
   float:left;
   width:250px;
   height:300px;

@@ -41,8 +41,8 @@ function moreFacts(){
     "I would love to have a job which allows me to travel.",
     "I am preparing for a 5 month backpacking trip !"];
 
-    let rand = Math.floor(Math.random() * facts.length);
-    document.getElementById("displayFact").innerHTML= facts[rand];
-    document.getElementById("displayFact").style.border="double";
+  let rand = Math.floor(Math.random() * facts.length);
+  document.getElementById("displayFact").innerHTML= facts[rand];
+  document.getElementById("displayFact").style.border="double";
 
 }

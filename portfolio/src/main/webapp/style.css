@@ -135,8 +135,8 @@ body,html{
   position: relative;
   text-align: center;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: repeat(8, 8vw);
+  grid-template-columns: repeat(auto-fit, 1fr);
+  grid-template-rows: repeat(auto-fit, 8vw);
 }
 
 .gallery__img {
@@ -145,6 +145,7 @@ body,html{
   height: 100%;
   display: block;
   position: relative;
+  box-shadow: 1px 5px 5px 1px rgba(0, 0, 0, 0.7);
 }
 .gallery__photo{
   position:relative;

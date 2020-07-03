@@ -5,8 +5,9 @@
 }
 :root {
   --white-colour: white;
-  --dark-colour: #525252;
-  --light-colour: lightgrey;
+  --dark-colour: #ff8080;
+  --light-colour: #FFF0F5;
+  --medium-colour:#FFDAB9;
   --main-font: 'Raleway', sans-serif;
   --normal-text: 300 ;
   --bold-text: 800;
@@ -27,7 +28,7 @@
   font-weight: normal;
 }
 body,html{
-  background: darkgrey;
+  background:var(--medium-colour);
   margin:0px ;
   padding: 0px;
   width:100%;

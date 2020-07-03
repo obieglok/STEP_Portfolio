@@ -253,3 +253,9 @@ body,html{
   border-style: none;
   background: var(--light-colour);
 }
+.project{
+  margin: 5px;
+  padding-left: 5px;
+  border-radius: 25px;
+  border-style:double;
+}

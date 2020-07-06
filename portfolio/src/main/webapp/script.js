@@ -44,5 +44,10 @@ function moreFacts(){
   let rand = Math.floor(Math.random() * facts.length);
   document.getElementById("displayFact").innerHTML= facts[rand];
   document.getElementById("displayFact").style.border="double";
+}
+async function getName(){
+    const response = await fetch('/data');
+    const name = await response.text();
+    document.getElementById('showName').innerHTML=name;
 
 }

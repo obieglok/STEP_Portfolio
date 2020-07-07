@@ -48,6 +48,6 @@ function moreFacts(){
 async function getComments(){
   const response = await fetch('/data');
   const comments = await response.text();
-  console.log(comments);
   document.getElementById('commentDisplay').innerHTML = comments;
+
 }

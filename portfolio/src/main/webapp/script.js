@@ -45,9 +45,9 @@ function moreFacts(){
   document.getElementById("displayFact").innerHTML= facts[rand];
   document.getElementById("displayFact").style.border="double";
 }
-async function getName(){
-    const response = await fetch('/data');
-    const name = await response.text();
-    document.getElementById('showName').innerHTML=name;
+async function getComments(){
+  const response = await fetch('/data');
+  const comments = await response.text();
+  document.getElementById('commentDisplay').innerHTML = comments;
 
 }

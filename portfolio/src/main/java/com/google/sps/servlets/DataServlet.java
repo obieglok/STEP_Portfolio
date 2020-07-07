@@ -22,13 +22,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns comments*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private ArrayList<String> comments = new ArrayList<String>();
-  private int counter=0;
+
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    /* Gets a request from user to get comments
+    *
+    * Arguments: 
+    *   request: provides request information from the HTTP servlet
+    *   response: response object where servlet will write information on
+    */
+
     populateComments(comments);
     String json = convertToJsonUsingGson(comments);
     response.setContentType("application/json;");
@@ -38,12 +46,18 @@ public class DataServlet extends HttpServlet {
     
   private void populateComments(ArrayList comments)
   {
+    /*Fills the comments ArrayList with hard coded comments. */
     comments.add("Great Blog!");
     comments.add("Amazing travel photos!");
     comments.add("You should make our website for us!");
-    counter++;
   }
   private String convertToJsonUsingGson(ArrayList comments) {
+    /* Converts the comments ArrayList to a json string using Gson
+    *
+    *Arguments: comments ArrayList that is populated with comments
+    *Returns: json String of the comments ArrayList
+    *
+    */
     Gson gson = new Gson();
     String json = gson.toJson(comments);
     return json;

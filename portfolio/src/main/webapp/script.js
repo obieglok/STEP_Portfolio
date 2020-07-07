@@ -12,15 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+function guessMyTrip() {
 /**
  * Allows user to guess my next trip destination.
  */
-function guessMyTrip() {
   const places = 
     ["thailand", "singapore", "tokyo", "australia", "peru",
          "hawaii", "vietnam"];
 
   let input = document.getElementById("user_input").value;
+  /** Checks if the place is part of the trip destination list, and
+  returns either postive or negative feedback */
   if (places.includes(input.toLowerCase())) {
       document.getElementById('display').innerHTML = 
         "Well done you guessed it correctly! " 
@@ -34,6 +37,10 @@ function guessMyTrip() {
   }
 }
 function moreFacts(){
+/**
+ * Allows the user to find out more facts about myself
+   by randomly selecting a fact when a button is clicked.
+ */
   const facts = ["I have hosted Jeff Weiner in Trinity College",
     "I took part in my first ever hackathon with JP Morgan in 2019.",
     "Once JP Morgan flew me business class to London! (amazing experience)",
@@ -46,6 +53,9 @@ function moreFacts(){
   document.getElementById("displayFact").style.border="double";
 }
 async function getComments(){
+/**
+ * Get's hard coded comments from DataServlet and displays them.
+ */
   const response = await fetch('/data');
   const comments = await response.text();
   document.getElementById('commentDisplay').innerHTML = comments;

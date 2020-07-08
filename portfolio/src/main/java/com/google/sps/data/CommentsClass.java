@@ -17,7 +17,7 @@ package com.google.sps.data;
 import java.util.Date;
 
 public final class CommentsClass{
-    private  Date currentTime;
+    private final Date currentTime;
     private final String author;
     private final String comment;
     private final long id;

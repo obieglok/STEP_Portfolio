@@ -35,11 +35,9 @@ import java.util.Date;
 /** Servlet that returns comments*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-  private ArrayList<String> comments = new ArrayList<String>();
-
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    /*Sends data to the server */
+    /*Sends data of the new comment to the server */
     Date currentTime = new Date();
     String username = getParameter(request, "username", "");
     String comment = getParameter(request, "comment", "");
@@ -56,7 +54,7 @@ public class DataServlet extends HttpServlet {
   }
 
   private String getParameter(HttpServletRequest request, String name, String defaultValue){
-    /* Gets Parameter from the Users Page
+    /* Gets Parameters from the Users Page
      *
      * Return: Returns the requested parameter or the default value if the parameter
      *  wasn't specified by the User.   
@@ -71,7 +69,7 @@ public class DataServlet extends HttpServlet {
   
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    /* Gets data from the server
+    /* Gets data from the server and writes it to the user
     *
     * Arguments: 
     *   request: provides request information from the HTTP servlet
@@ -89,7 +87,7 @@ public class DataServlet extends HttpServlet {
       String comment = (String) entity.getProperty("comment");
       Date date = (Date) entity.getProperty("date");
 
-      CommentsClass commentR = new CommentsClass(date,author, comment, id);
+      CommentsClass commentR = new CommentsClass(date, author, comment, id);
       commentsList.add(commentR);
     }
 
@@ -100,10 +98,11 @@ public class DataServlet extends HttpServlet {
   }
 
   private String convertToJsonUsingGson(List<CommentsClass> comments) {
-    /* Converts the comments ArrayList to a json string using Gson
+    /* Converts the comments List to a json string using Gson
     *
     *Arguments: comments ArrayList that is populated with comments
-    *Returns: json String of the comments ArrayList
+    *
+    *Returns: json string of the comments
     *
     */
     Gson gson = new Gson();

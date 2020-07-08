@@ -22,6 +22,7 @@ function guessMyTrip() {
          "hawaii", "vietnam"];
 
   let input = document.getElementById("user_input").value;
+
   /** Checks if the place is part of the trip destination list, and
   returns either postive or negative feedback */
   if (places.includes(input.toLowerCase())) {
@@ -52,12 +53,23 @@ function moreFacts(){
   document.getElementById("displayFact").innerHTML= facts[rand];
   document.getElementById("displayFact").style.border="double";
 }
-async function getComments(){
+function getComments(){
 /**
- * Get's hard coded comments from DataServlet and displays them.
+ * Get's comments from the server and displays them in the table
+ * by creating new rows.
  */
-  const response = await fetch('/data');
-  const comments = await response.text();
-  document.getElementById('commentDisplay').innerHTML = comments;
+  fetch('/data').then(response => response.json()).then((comments) => {
+  const displayTable = document.getElementById('table') ;
+  comments.forEach((comment) => {
 
+  let row = displayTable.insertRow(1);
+  let authorCell = row.insertCell(0);
+  let commentCell = row.insertCell(1);
+  let dateCell = row.insertCell(2);
+
+  authorCell.innerHTML = comment.author;
+  commentCell.innerHTML = comment.comment;
+  dateCell.innerHTML = comment.date;
+    })
+ });
 }

@@ -59,17 +59,16 @@ function getComments(){
  * by creating new rows.
  */
   fetch('/data').then(response => response.json()).then((comments) => {
-  const displayTable = document.getElementById('table') ;
-  comments.forEach((comment) => {
+    const displayTable = document.getElementById('table') ;
+    comments.forEach((comment) => {
+      let row = displayTable.insertRow(1);
+      let authorCell = row.insertCell(0);
+      let commentCell = row.insertCell(1);
+      let dateCell = row.insertCell(2);
 
-  let row = displayTable.insertRow(1);
-  let authorCell = row.insertCell(0);
-  let commentCell = row.insertCell(1);
-  let dateCell = row.insertCell(2);
-
-  authorCell.innerHTML = comment.author;
-  commentCell.innerHTML = comment.comment;
-  dateCell.innerHTML = comment.date;
-    })
+      authorCell.innerHTML = comment.author;
+      commentCell.innerHTML = comment.comment;
+      dateCell.innerHTML = comment.date;
+      })
  });
 }

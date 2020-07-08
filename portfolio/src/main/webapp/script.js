@@ -12,15 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+
+function guessMyTrip() {
 /**
  * Allows user to guess my next trip destination.
  */
-function guessMyTrip() {
   const places = 
     ["thailand", "singapore", "tokyo", "australia", "peru",
          "hawaii", "vietnam"];
 
   let input = document.getElementById("user_input").value;
+
+  /** Checks if the place is part of the trip destination list, and
+  returns either postive or negative feedback */
   if (places.includes(input.toLowerCase())) {
       document.getElementById('display').innerHTML = 
         "Well done you guessed it correctly! " 
@@ -34,6 +38,10 @@ function guessMyTrip() {
   }
 }
 function moreFacts(){
+/**
+ * Allows the user to find out more facts about myself
+   by randomly selecting a fact when a button is clicked.
+ */
   const facts = ["I have hosted Jeff Weiner in Trinity College",
     "I took part in my first ever hackathon with JP Morgan in 2019.",
     "Once JP Morgan flew me business class to London! (amazing experience)",
@@ -45,9 +53,22 @@ function moreFacts(){
   document.getElementById("displayFact").innerHTML= facts[rand];
   document.getElementById("displayFact").style.border="double";
 }
-async function getComments(){
-  const response = await fetch('/data');
-  const comments = await response.text();
-  document.getElementById('commentDisplay').innerHTML = comments;
+function getComments(){
+/**
+ * Get's comments from the server and displays them in the table
+ * by creating new rows.
+ */
+  fetch('/data').then(response => response.json()).then((comments) => {
+    const displayTable = document.getElementById('table') ;
+    comments.forEach((comment) => {
+      let row = displayTable.insertRow(1);
+      let authorCell = row.insertCell(0);
+      let commentCell = row.insertCell(1);
+      let dateCell = row.insertCell(2);
 
+      authorCell.innerHTML = comment.author;
+      commentCell.innerHTML = comment.comment;
+      dateCell.innerHTML = comment.date;
+      })
+ });
 }

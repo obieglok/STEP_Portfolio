@@ -90,10 +90,10 @@ function getComments(){
 }
 
 function deleteComment(comment){
-    /* Deletes the comment for which the delete button was 
-    *  clicked.
-    */
-    const parameter = new URLSearchParams();
-    parameter.append('id', comment.id);
-    fetch('/delete-comment',{method: 'POST', body: parameter});
+  /* Deletes the comment for which the delete button was 
+  *  clicked.
+  */
+  const parameter = new URLSearchParams();
+  parameter.append('id', comment.id);
+  fetch('/delete-comment',{method: 'POST', body: parameter});
 }

@@ -86,7 +86,7 @@ public class DataServlet extends HttpServlet {
       String author = (String) entity.getProperty("author");
       String comment = (String) entity.getProperty("comment");
       Date date = (Date) entity.getProperty("date");
-      System.out.println(date + "entity date");
+      
       CommentsClass commentR = new CommentsClass(date, author, comment, id);
       commentsList.add(commentR);
     }

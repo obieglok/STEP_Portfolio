@@ -74,6 +74,7 @@ function getComments(){
         + "\n" + "\n"; 
 
       const deleteCommentButton = document.createElement('button');
+      deleteCommentButton.className = "button";
       deleteCommentButton.innerText = "Delete";
       deleteCommentButton.addEventListener('click', () => {
         deleteComment(comment);

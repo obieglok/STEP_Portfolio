@@ -45,7 +45,7 @@ public class DataServlet extends HttpServlet {
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("author", username);
     commentEntity.setProperty("comment", comment);
-    commentEntity.setProperty("date",currentTime);
+    commentEntity.setProperty("date", currentTime);
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
@@ -86,7 +86,7 @@ public class DataServlet extends HttpServlet {
       String author = (String) entity.getProperty("author");
       String comment = (String) entity.getProperty("comment");
       Date date = (Date) entity.getProperty("date");
-
+      
       CommentsClass commentR = new CommentsClass(date, author, comment, id);
       commentsList.add(commentR);
     }

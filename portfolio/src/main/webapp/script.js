@@ -59,16 +59,23 @@ function getComments(){
  * by creating new rows.
  */
   fetch('/data').then(response => response.json()).then((comments) => {
-    const displayTable = document.getElementById('table') ;
+    const displayComment = document.getElementById('comment') ;
     comments.forEach((comment) => {
-      let row = displayTable.insertRow(1);
-      let authorCell = row.insertCell(0);
-      let commentCell = row.insertCell(1);
-      let dateCell = row.insertCell(2);
+      /*For Each comment we create a seperate paragraph 
+      * which includes the date at which the comment was
+      * created on, the author and the comment itself.
+      */
+      const commentElement = document.createElement('P');
+      commentElement.className = 'commentSection';
 
-      authorCell.innerHTML = comment.author;
-      commentCell.innerHTML = comment.comment;
-      dateCell.innerHTML = comment.date;
+      const userComment = document.createElement('span');
+      userComment.innerText ="On " + comment.currentTime + " , " 
+        + comment.author +" said: " + "\n" +"\n" + comment.comment
+        + "\n" + "\n"; 
+
+      commentElement.appendChild(userComment);  
+      displayComment.appendChild(commentElement);
+
       })
  });
 }

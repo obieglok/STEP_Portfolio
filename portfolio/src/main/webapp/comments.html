@@ -19,25 +19,23 @@
     </nav>
     <div id="content">
       <div class="section">
+        <img src="images/review.png" alt="Photo of a comment" class="intro-image">
         <h1>Comments Section! </h1>
         <form action="/data" method="POST">
           <p>Enter Your Name:</p>
-          <textarea name="username" placeholder="Your Name"></textarea>
+          <textarea name="username" placeholder="Your Name" required></textarea>
           <br/><br/>
           <p>Enter Your Comment </p>
-          <textarea name="comment" placeholder="Your Comment"></textarea>
+          <textarea name="comment" placeholder="Your Comment" required></textarea>
           <input type="submit" />
           <br>
           <br>
         </form>
-        
-        <table id="table">
-          <tr id="row">
-              <th class="column">Author</th>
-              <th class="column">Comment</th>
-              <th class="column">Date </th>
-          </tr>
-        </table>
+    
+      </div>
+      <div class ="section" id ="comment">
+        <h1>Comments</h1>
+
       </div>
     </div>
     <footer class="footer">

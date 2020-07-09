@@ -68,7 +68,7 @@ function getComments(){
 
       authorCell.innerHTML = comment.author;
       commentCell.innerHTML = comment.comment;
-      dateCell.innerHTML = comment.date;
+      dateCell.innerHTML = comment.currentTime;
       })
  });
 }

@@ -67,15 +67,33 @@ function getComments(){
       */
       const commentElement = document.createElement('P');
       commentElement.className = 'commentSection';
-
+      
       const userComment = document.createElement('span');
       userComment.innerText ="On " + comment.currentTime + " , " 
         + comment.author +" said: " + "\n" +"\n" + comment.comment
         + "\n" + "\n"; 
 
-      commentElement.appendChild(userComment);  
+      const deleteCommentButton = document.createElement('button');
+      deleteCommentButton.innerText = "Delete";
+      deleteCommentButton.addEventListener('click', () => {
+        deleteComment(comment);
+
+        commentElement.remove();
+      })
+
+      commentElement.appendChild(userComment);
+      commentElement.appendChild(deleteCommentButton);
       displayComment.appendChild(commentElement);
 
       })
  });
+}
+
+function deleteComment(comment){
+    /* Deletes the comment for which the delete button was 
+    *  clicked.
+    */
+    const parameter = new URLSearchParams();
+    parameter.append('id', comment.id);
+    fetch('/delete-comment',{method: 'POST', body: parameter});
 }

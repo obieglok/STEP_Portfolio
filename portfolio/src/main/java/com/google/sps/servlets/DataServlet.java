@@ -109,4 +109,7 @@ public class DataServlet extends HttpServlet {
     String json = gson.toJson(comments);
     return json;
   }
+  public String getJsonString(List<CommentsClass> comments){
+      return convertToJsonUsingGson(comments);
+  }
 }

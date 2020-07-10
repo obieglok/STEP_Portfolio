@@ -110,6 +110,10 @@ public class DataServlet extends HttpServlet {
     return json;
   }
   public String getJsonString(List<CommentsClass> comments){
-      return convertToJsonUsingGson(comments);
+    /*Getter function for convertToJsonUsingGson
+    * Arguments: comment Lists that has comment objects
+    * Returns: json string of the comments
+    */
+    return convertToJsonUsingGson(comments);
   }
 }

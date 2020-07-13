@@ -12,9 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package com.google.sps.servlets;
+package com.google.sps;
 
 import com.google.sps.data.CommentsClass;
+import com.google.sps.servlets.DataServlet;
 import java.io.IOException;
 import com.google.gson.Gson;
 import javax.servlet.annotation.WebServlet;
@@ -23,30 +24,57 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import org.junit.Assert;
+import org.junit.Before;
+import org.junit.After;
 import org.junit.Test;
+import javax.servlet.http.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import java.util.Date;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import com.google.gson.Gson;
-
+import static org.mockito.Mockito.*;
+import com.google.appengine.api.datastore.DatastoreService;
+import com.google.appengine.api.datastore.DatastoreServiceFactory;
+import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
+import static org.junit.Assert.assertTrue;
+import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
+import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
 @RunWith(JUnit4.class)
 public final class DataServletTest extends DataServlet{
+  private final LocalServiceTestHelper helper = 
+    new LocalServiceTestHelper(new LocalDatastoreServiceTestConfig());
+    
+  @Before
+  public void setUp() {
+    helper.setUp();
+  }
+
+  @After
+  public void tearDown() {
+    helper.tearDown();
+  }
 
   @Test
-  public void testConvertingToJSonUsingGson() {
-    /*Tests whether the ConvertToJsonUsingGson Function in Data Servlet works */
-    List<CommentsClass> commentsList = new ArrayList<>();
+  public void testdoPostFunction() throws IOException{
+  /*Tests the doPost function to see if the parameters get treated properly */
     DataServlet servlet = new DataServlet();
-    final Date date = new Date();
-    SimpleDateFormat DateFor = new SimpleDateFormat(" MMM dd, yyyy hh:mm:ss aaa");
-    DateFor = new SimpleDateFormat("\"MMM dd, yyyy hh:mm:ss aaa\"");
-    String stringDate = DateFor.format(date);
-    CommentsClass trialComment = new CommentsClass(date, "Klaudia","Awesome Blog",2147483649L);
-    commentsList.add(trialComment);
-    String json = servlet.getJsonString(commentsList);
-    String actual= "[{\"currentTime\":"+stringDate+
-      ",\"author\":\"Klaudia\",\"comment\":\"Awesome Blog\",\"id\":2147483649}]";
-    Assert.assertEquals (actual,json);
+    HttpServletRequest request = mock(HttpServletRequest.class);       
+    HttpServletResponse response = mock(HttpServletResponse.class);
+
+    //set the parameters that will be requested to test values
+    when(request.getParameter("username")).thenReturn("Klaudia");
+    when(request.getParameter("comment")).thenReturn("Awesome Blog");
+
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter writer = new PrintWriter(stringWriter);
+    when(response.getWriter()).thenReturn(writer);
+
+    servlet.doPost(request, response);
+    String result = stringWriter.toString();
+    Assert.assertTrue(result.contains("\"author\":\"Klaudia\",\"comment\":\"Awesome Blog\""));
   }
 }

@@ -46,9 +46,14 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty("author", username);
     commentEntity.setProperty("comment", comment);
     commentEntity.setProperty("date", currentTime);
+    commentEntity.setProperty("id", commentEntity.getKey().getId());
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
+
+    Gson gson =new Gson();
+    response.setContentType("application/json");
+    response.getWriter().println(gson.toJson(commentEntity));
     response.sendRedirect("/comments.html");
 
   }
@@ -108,12 +113,5 @@ public class DataServlet extends HttpServlet {
     Gson gson = new Gson();
     String json = gson.toJson(comments);
     return json;
-  }
-  public String getJsonString(List<CommentsClass> comments){
-    /*Getter function for convertToJsonUsingGson
-    * Arguments: comment Lists that has comment objects
-    * Returns: json string of the comments
-    */
-    return convertToJsonUsingGson(comments);
   }
 }

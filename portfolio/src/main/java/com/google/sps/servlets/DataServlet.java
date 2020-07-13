@@ -46,9 +46,14 @@ public class DataServlet extends HttpServlet {
     commentEntity.setProperty("author", username);
     commentEntity.setProperty("comment", comment);
     commentEntity.setProperty("date", currentTime);
+    commentEntity.setProperty("id", commentEntity.getKey().getId());
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
+
+    Gson gson =new Gson();
+    response.setContentType("application/json");
+    response.getWriter().println(gson.toJson(commentEntity));
     response.sendRedirect("/comments.html");
 
   }

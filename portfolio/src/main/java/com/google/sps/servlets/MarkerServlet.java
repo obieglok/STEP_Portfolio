@@ -51,7 +51,7 @@ public class MarkerServlet extends HttpServlet {
     response.sendRedirect("/maps.html");
   }
   /** Stores a marker in Datastore. */
-  public void storeMarker(MarkerClass marker) {
+  private void storeMarker(MarkerClass marker) {
     Entity markerEntity = new Entity("Marker");
     markerEntity.setProperty("lat", marker.getLat());
     markerEntity.setProperty("lng", marker.getLng());

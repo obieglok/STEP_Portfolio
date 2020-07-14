@@ -38,9 +38,12 @@ import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
+import com.google.appengine.api.datastore.PreparedQuery;
+import com.google.appengine.api.datastore.Query;
 import static org.junit.Assert.assertTrue;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import java.util.List;
 @RunWith(JUnit4.class)
 public final class MarkerServletTest extends MarkerServlet{
   private final LocalServiceTestHelper helper = 
@@ -77,6 +80,32 @@ public final class MarkerServletTest extends MarkerServlet{
     String predictedResult = "{\"lat\":53.3498,\"lng\":-6.2603,\"title\":\"Dublin\","+
       "\"content\":\"This is where you live\"}";
     
+    Assert.assertTrue(result.contains(predictedResult));
+  }
+  @Test
+  public void testdoGetFunction() throws IOException{
+    /*Tests the doGet function to see if marker gets retrieved properly */
+    MarkerServlet servlet = new MarkerServlet();
+    HttpServletRequest request = mock(HttpServletRequest.class);       
+    HttpServletResponse response = mock(HttpServletResponse.class);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    // Create a new marker entity for testing purposes
+    Entity markerEntity = new Entity("Marker");
+    markerEntity.setProperty("lat", (double)1.3521);
+    markerEntity.setProperty("lng", (double)103.8198);
+    markerEntity.setProperty("title", "Singapore");
+    markerEntity.setProperty("content", "This will be your first stop!");
+
+    datastore.put(markerEntity);
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter writer = new PrintWriter(stringWriter);
+    when(response.getWriter()).thenReturn(writer);
+    servlet.doGet(request, response);
+
+    String result = stringWriter.toString();
+    String predictedResult = "{\"lat\":1.3521,\"lng\":103.8198,\"title\":\"Singapore\","+
+      "\"content\":\"This will be your first stop!\"}";
     Assert.assertTrue(result.contains(predictedResult));
   }
 }

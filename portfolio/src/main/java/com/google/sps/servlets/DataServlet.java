@@ -51,27 +51,13 @@ public class DataServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
 
-    Gson gson =new Gson();
+    Gson gson = new Gson();
     response.setContentType("application/json");
     response.getWriter().println(gson.toJson(commentEntity));
     response.sendRedirect("/comments.html");
 
-  }
+  }  
 
-  private String getParameter(HttpServletRequest request, String name, String defaultValue){
-    /* Gets Parameters from the Users Page
-     *
-     * Return: Returns the requested parameter or the default value if the parameter
-     *  wasn't specified by the User.   
-     */
-    String value = request.getParameter(name);
-    if(value == null){
-        return defaultValue;
-    }
-    return value;
-  }
-
-  
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     /* Gets data from the server and writes it to the user
@@ -100,6 +86,19 @@ public class DataServlet extends HttpServlet {
 
     response.setContentType("application/json;");
     response.getWriter().println(json);
+  }
+  
+  private String getParameter(HttpServletRequest request, String name, String defaultValue){
+    /* Gets Parameters from the Users Page
+     *
+     * Return: Returns the requested parameter or the default value if the parameter
+     *  wasn't specified by the User.   
+     */
+    String value = request.getParameter(name);
+    if(value == null){
+        return defaultValue;
+    }
+    return value;
   }
 
   private String convertToJsonUsingGson(List<CommentsClass> comments) {

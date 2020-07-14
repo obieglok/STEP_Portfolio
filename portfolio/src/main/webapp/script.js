@@ -99,6 +99,9 @@ function deleteComment(comment){
   fetch('/delete-comment',{method: 'POST', body: parameter});
 }
 
+let map;
+let editMarker;
+
 function createMap() {
 /*Function to create a Google Maps Map
 * It includes markers for all the locations on my Round the World
@@ -111,7 +114,7 @@ function createMap() {
     center: myLatlng,
     mapTypeId: 'satellite'
   };
-  let map = new google.maps.Map(document.getElementById('map'),
+  map = new google.maps.Map(document.getElementById('map'),
     mapOptions);
 
   addLandmark(map, 53.3498, -6.2603, 'Dublin',
@@ -170,6 +173,12 @@ function createMap() {
   });
 
   flightPath.setMap(map);
+
+  map.addListener('click', (event) => {
+    createMarkerForEdit(event.latLng.lat(), event.latLng.lng());
+  });
+  // When Map is created fetch markers from server and show them
+  fetchMarkers(map);
 }
 function addLandmark(map, lat, lng, title, description){
 /*Function that creates a landmark pin on the Google Maps Map 
@@ -188,4 +197,73 @@ function addLandmark(map, lat, lng, title, description){
   marker.addListener('click', () => {
     infoWindow.open(map, marker);
   });
+}
+/** Creates a marker that shows a textbox that the user can edit. */
+function createMarkerForEdit(lat, lng) {
+//   If we're already showing an editable marker, then remove it.
+  if (editMarker) {
+    editMarker.setMap(null);
+  }
+
+  editMarker =
+    new google.maps.Marker({position: {lat: lat, lng: lng}, map: map});
+
+  const infoWindow =
+    new google.maps.InfoWindow({content: buildInfoWindowInput(lat, lng)});
+
+//When the user closes the editable info window, remove the marker.
+  google.maps.event.addListener(infoWindow, 'closeclick', () => {
+    editMarker.setMap(null);
+  });
+
+  infoWindow.open(map, editMarker);
+}
+
+function fetchMarkers(map){
+/*Function fetches markers from the server and displays them on the map */
+  fetch('/markers').then(response => response.json()).then((markers) => {
+    markers.forEach(
+      (marker) => {
+        addLandmark(map,marker.lat, marker.lng, marker.title,
+          marker.content)});
+  });
+}
+
+/** Sends a marker to the backend for saving. */
+function postMarker(lat, lng, title, content) {
+  const params = new URLSearchParams();
+  params.append('lat', lat);
+  params.append('lng', lng);
+  params.append('title', title);
+  params.append('content', content);
+
+  fetch('/markers', {method: 'POST', body: params});
+}
+
+function buildInfoWindowInput(lat, lng) {
+/**
+ * Builds and returns HTML elements that show an editable titlebox,textbox 
+ * and a submit button.
+ */
+  const titleBox = document.createElement('textarea');
+  titleBox.placeholder = "Location";
+  const textBox = document.createElement('textarea');
+  textBox.placeholder = "Enter why I should visit this location!";
+  const button = document.createElement('button');
+  button.appendChild(document.createTextNode('Submit'));
+
+  button.onclick = () => {
+    postMarker(lat, lng, titleBox.value, textBox.value);
+    addLandmark(map, lat, lng, titleBox.value, textBox.value);
+    editMarker.setMap(null);
+  };
+
+  const containerDiv = document.createElement('div');
+  containerDiv.appendChild(titleBox);
+  containerDiv.appendChild(document.createElement('br'));
+  containerDiv.appendChild(textBox);
+  containerDiv.appendChild(document.createElement('br'));
+  containerDiv.appendChild(button);
+
+  return containerDiv;
 }

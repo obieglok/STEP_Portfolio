@@ -44,6 +44,10 @@ public class MarkerServlet extends HttpServlet {
     String title = Jsoup.clean(request.getParameter("title"),Whitelist.none());
     MarkerClass marker = new MarkerClass(lat, lng, title, content);
     storeMarker(marker);
+    
+    Gson gson = new Gson();
+    response.setContentType("application/json");
+    response.getWriter().println(gson.toJson(marker));
     response.sendRedirect("/maps.html");
   }
   /** Stores a marker in Datastore. */
@@ -56,6 +60,7 @@ public class MarkerServlet extends HttpServlet {
 
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(markerEntity);
+
   }
     /** Responds with a JSON array containing marker data. */
   @Override

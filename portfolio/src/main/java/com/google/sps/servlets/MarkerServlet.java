@@ -50,18 +50,6 @@ public class MarkerServlet extends HttpServlet {
     response.getWriter().println(gson.toJson(marker));
     response.sendRedirect("/maps.html");
   }
-  /** Stores a marker in Datastore. */
-  private void storeMarker(MarkerClass marker) {
-    Entity markerEntity = new Entity("Marker");
-    markerEntity.setProperty("lat", marker.getLat());
-    markerEntity.setProperty("lng", marker.getLng());
-    markerEntity.setProperty("title",marker.getTitle());
-    markerEntity.setProperty("content", marker.getContent());
-
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-    datastore.put(markerEntity);
-
-  }
     /** Responds with a JSON array containing marker data. */
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -89,5 +77,17 @@ public class MarkerServlet extends HttpServlet {
     Gson gson = new Gson();
     String json = gson.toJson(markerList);
     response.getWriter().println(json);
+  }
+  /** Stores a marker in Datastore. */
+  private void storeMarker(MarkerClass marker) {
+    Entity markerEntity = new Entity("Marker");
+    markerEntity.setProperty("lat", marker.getLat());
+    markerEntity.setProperty("lng", marker.getLng());
+    markerEntity.setProperty("title",marker.getTitle());
+    markerEntity.setProperty("content", marker.getContent());
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(markerEntity);
+
   }
 }

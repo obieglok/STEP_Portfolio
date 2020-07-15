@@ -267,3 +267,36 @@ function buildInfoWindowInput(lat, lng) {
 
   return containerDiv;
 }
+function authentication() {
+/*Checks if the user is logged in
+* If they are logged in they can see and fill out the comments form.
+* else they are asked to login if they want to comment.
+*/
+  const login = document.getElementById("login");
+  const logInOut = document.getElementById("logout");
+  fetch('/login').then(response => response.json()).then((loggedIn) => {
+    //if they are logged in they can fill the form to leave a comment
+    if(loggedIn.email){
+      login.innerHTML = "Hello "+ loggedIn.email;
+      logInOut.innerHTML = "<a href=\"" + loggedIn.logoutUrl + "\">Logout</a>";
+      showCommentsForm();
+    }
+    else
+    {
+      hideCommentsForm();
+      login.innerHTML = "Please login to leave a comment";
+      logInOut.innerHTML= "<a href=\"" + loggedIn.loginUrl + "\">Login</a>";
+    
+    }
+  });
+}
+function hideCommentsForm(){
+/*Hides comments form*/
+  const form = document.getElementById("comments-form");
+  form.style.display ="none";
+}
+function showCommentsForm(){
+/*Shows comments Form */
+  const form = document.getElementById("comments-form");
+  form.style.display= "visible";
+}

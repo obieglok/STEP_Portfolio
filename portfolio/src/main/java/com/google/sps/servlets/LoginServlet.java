@@ -32,24 +32,25 @@ public class LoginServlet extends HttpServlet{
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException{
     //Checks if the user is logged in or not.
+
     UserService userService = UserServiceFactory.getUserService();
     response.setContentType("application/json");
     Map<String, String> logMap = new HashMap<String,String>();
+
     //if user is  logged out create a login URL.
     if(!userService.isUserLoggedIn()){
       String loginUrl = userService.createLoginURL("/comments.html");
       logMap.put("email","");
       logMap.put("loginUrl", loginUrl);
-      response.getWriter().println(convertToJson(logMap));
     }
-    else{
+    else if(userService.isUserLoggedIn()){
       //else if user is logged in create a logout URL
       String email = userService.getCurrentUser().getEmail();
       String logoutUrl = userService.createLogoutURL("/comments.html");
       logMap.put("email", email);
       logMap.put("logoutUrl", logoutUrl);
-      response.getWriter().println(convertToJson(logMap)); 
     }
+    response.getWriter().println(convertToJson(logMap));
   }
     private String convertToJson(Map<String,String> logMap) {
     /* Converts the logMap into a Json String

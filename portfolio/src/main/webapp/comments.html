@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;800&display=swap">
     <script src="script.js"></script>
   </head>
-  <body onload="getComments()" >
+  <body onload="authentication(); getComments(); " >
     <nav>
       <div class="nav" id="nav">
         <h1> Klaudia's Portfolio</h1>
@@ -22,9 +22,11 @@
       <div class="section">
         <img src="images/review.png" alt="Photo of a comment" class="intro-image">
         <h1>Comments Section! </h1>
-        <form action="/data" method="POST">
+        <p id="login"/>
+        <p id="logout"/>
+        <form action="/data" method="POST" id="comments-form">
           <p>Enter Your Name:</p>
-          <textarea name="username" placeholder="Your Name" cols="25" required></textarea>
+          <textarea name="username" placeholder="Enter display name" cols="25" required></textarea>
           <br/><br/>
           <p>Enter Your Comment </p>
           <textarea name="comment" placeholder="Your Comment" rows="4" cols="50" required></textarea>

@@ -52,14 +52,14 @@ public class LoginServlet extends HttpServlet{
     }
     response.getWriter().println(convertToJson(logMap));
   }
-    private String convertToJson(Map<String,String> logMap) {
-    /* Converts the logMap into a Json String
-    *
-    *Arguments: Hash Mao that stores the users email and login/logout URL
-    *
-    *Returns: json string of the hash map
-    *
-    */
+  private String convertToJson(Map<String,String> logMap) {
+  /* Converts the logMap into a Json String
+  *
+  *Arguments: Hash Mao that stores the users email and login/logout URL
+  *
+  *Returns: json string of the hash map
+  *
+  */
     Gson gson = new Gson();
     String json = gson.toJson(logMap);
     return json;

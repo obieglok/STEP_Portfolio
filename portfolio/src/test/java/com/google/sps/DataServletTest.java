@@ -43,6 +43,8 @@ import com.google.appengine.api.datastore.KeyFactory;
 import static org.junit.Assert.assertTrue;
 import com.google.appengine.tools.development.testing.LocalDatastoreServiceTestConfig;
 import com.google.appengine.tools.development.testing.LocalServiceTestHelper;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 @RunWith(JUnit4.class)
 public final class DataServletTest extends DataServlet{
   private final LocalServiceTestHelper helper = 
@@ -76,5 +78,40 @@ public final class DataServletTest extends DataServlet{
     servlet.doPost(request, response);
     String result = stringWriter.toString();
     Assert.assertTrue(result.contains("\"author\":\"Klaudia\",\"comment\":\"Awesome Blog\""));
+  }
+  
+  @Test
+  public void testDoGetFunction() throws IOException{
+    /*Tests the doGet function to see if the entities are retrieved from the
+    * server correctly.
+    */
+    DataServlet servlet = new DataServlet();
+    HttpServletRequest request = mock(HttpServletRequest.class);       
+    HttpServletResponse response = mock(HttpServletResponse.class);
+
+    Date date = new Date();
+    //Set Date to match the json format
+    SimpleDateFormat DateFor = new SimpleDateFormat(" MMM dd, yyyy hh:mm:ss aaa");
+    DateFor = new SimpleDateFormat("\"MMM dd, yyyy h:mm:ss aaa\"");
+    String stringDate = DateFor.format(date);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    // Create a new comment entity for testing purposes
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("author", "klaudiaob");
+    commentEntity.setProperty("comment", "Great Blog!");
+    commentEntity.setProperty("date", date);
+
+    datastore.put(commentEntity);
+
+    StringWriter stringWriter = new StringWriter();
+    PrintWriter writer = new PrintWriter(stringWriter);
+    when(response.getWriter()).thenReturn(writer);
+    servlet.doGet(request, response);
+
+    String result = stringWriter.toString();
+    String predictedResult= "\"currentTime\":"+stringDate+
+      ",\"author\":\"klaudiaob\",\"comment\":\"Great Blog!\"";
+    Assert.assertTrue(result.contains(predictedResult));
   }
 }
